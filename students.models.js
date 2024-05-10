@@ -1,4 +1,5 @@
 const axios = require("axios")
+// import axios from "axios"
 
 
 const fireApi = axios.create({baseURL: 'https://firestore.googleapis.com/v1/'})
@@ -33,5 +34,19 @@ function fetchSingleStudent(studentid){
     })
 }
 
-module.exports ={ fetchStudents, fetchSingleStudent}
+function addStudent(newStudent){
+    console.log(newStudent);
+    return fireApi.post(`/projects/jwbackend-36662/databases/(default)/documents/students`, newStudent).then((response) => {
+    //    return newStudent
+    })
+}
+
+function removeStudent(student_id){
+    return fireApi.delete(`/projects/jwbackend-36662/databases/(default)/documents/students/${student_id}`).then(() => {
+    })
+}
+
+
+
+module.exports ={ fetchStudents, fetchSingleStudent, addStudent, removeStudent}
 

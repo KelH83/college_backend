@@ -8,7 +8,6 @@ describe("GET /", () => {
         .expect(200)
         .then((response) => {
           const data = response.body.students;
-          expect(data.length).toBe(5);
           data.forEach((student) => {
             expect(student.hasOwnProperty("student_id")).toBe(true);
             expect(student.hasOwnProperty("name")).toBe(true);
@@ -34,5 +33,13 @@ describe("GET /:student_id", () => {
           expect(data.hasOwnProperty("dateOfBirth")).toBe(true);
           
         });
+    });
+});
+
+describe("DELETE /:student_id", () => {
+    test("Should delete a student when passed an existing id", () => {
+      return request(app)
+        .delete("/06")
+        .expect(200)
     });
 });

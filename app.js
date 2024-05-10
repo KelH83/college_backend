@@ -8,6 +8,8 @@ app.use(cors());
 const {
   getAllStudents,
   getSingleStudent,
+  postNewStudent,
+  deleteStudent
 } = require("./students.controllers");
 
 
@@ -15,5 +17,6 @@ const {
 
 app.get("/", getAllStudents);
 app.get("/:student_id", getSingleStudent);
+app.delete("/:student_id", deleteStudent);
 
 module.exports = app;
