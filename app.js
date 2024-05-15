@@ -9,6 +9,7 @@ const {
   getAllStudents,
   getSingleStudent,
   postNewStudent,
+  patchStudent,
   deleteStudent
 } = require("./students.controllers");
 
@@ -17,6 +18,8 @@ const {
 
 app.get("/", getAllStudents);
 app.get("/:student_id", getSingleStudent);
+app.post("/", postNewStudent);
+app.patch("/:student_id", patchStudent);
 app.delete("/:student_id", deleteStudent);
 
 module.exports = app;

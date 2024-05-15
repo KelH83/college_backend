@@ -35,11 +35,33 @@ function fetchSingleStudent(studentid){
 }
 
 function addStudent(newStudent){
-    console.log(newStudent);
-    return fireApi.post(`/projects/jwbackend-36662/databases/(default)/documents/students`, newStudent).then((response) => {
-    //    return newStudent
+    const date = new Date();
+    const timestamp = new Date().getTime().toString();
+    return fireApi.post(`/projects/jwbackend-36662/databases/(default)/documents/students/?documentId=${timestamp}`, newStudent).then((response) => {
+    return response
     })
 }
+
+function updateStudent(student_id, studentUpdate){
+    let update = ''
+    if(studentUpdate.fields.name){
+        update = update + 'updateMask.fieldPaths=name&'
+    }
+    if(studentUpdate.fields.email){
+        update = update + 'updateMask.fieldPaths=email&'
+    }
+    if(studentUpdate.fields.address){
+        update = update + 'updateMask.fieldPaths=address&'
+    }
+    if(studentUpdate.fields.dateOfBirth){
+        update = update + 'updateMask.fieldPaths=dateOfBirth&'
+    }
+    
+    return fireApi.patch(`/projects/jwbackend-36662/databases/(default)/documents/students/${student_id}?${update}`, studentUpdate).then((response) => {
+    return response
+    })
+}
+
 
 function removeStudent(student_id){
     return fireApi.delete(`/projects/jwbackend-36662/databases/(default)/documents/students/${student_id}`).then(() => {
@@ -48,5 +70,5 @@ function removeStudent(student_id){
 
 
 
-module.exports ={ fetchStudents, fetchSingleStudent, addStudent, removeStudent}
+module.exports ={ fetchStudents, fetchSingleStudent, addStudent, updateStudent,removeStudent}
 

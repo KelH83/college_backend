@@ -2,6 +2,7 @@ const {
     fetchStudents,
     fetchSingleStudent,
     addStudent,
+    updateStudent,
     removeStudent,
   } = require("./students.models");
 
@@ -28,9 +29,21 @@ const {
 
   function postNewStudent(req, res, next) {
     const studentData = req.body;
-    addStudent()
-      .then(() => {
+    addStudent(studentData)
+      .then((response) => {
         res.status(201).send({msg: "Student successfully added" });
+      })
+      .catch((err) => {
+        next(err);
+      });
+  }
+
+  function patchStudent(req, res, next) {
+    const studentData = req.body;
+    const student_id = req.params.student_id
+    updateStudent(student_id, studentData)
+      .then(() => {
+        res.status(200).send({msg: "Student successfully updated" });
       })
       .catch((err) => {
         next(err);
@@ -52,5 +65,6 @@ const {
     getAllStudents,
     getSingleStudent,
     postNewStudent,
+    patchStudent,
     deleteStudent,
   };
