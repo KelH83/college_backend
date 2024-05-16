@@ -44,20 +44,20 @@ function addStudent(newStudent){
 
 function updateStudent(student_id, studentUpdate){
     let update = ''
-    if(studentUpdate.fields.name){
+    if(studentUpdate.name){
         update = update + 'updateMask.fieldPaths=name&'
     }
-    if(studentUpdate.fields.email){
+    if(studentUpdate.email){
         update = update + 'updateMask.fieldPaths=email&'
     }
-    if(studentUpdate.fields.address){
+    if(studentUpdate.address){
         update = update + 'updateMask.fieldPaths=address&'
     }
-    if(studentUpdate.fields.dateOfBirth){
-        update = update + 'updateMask.fieldPaths=dateOfBirth&'
+    if(studentUpdate.dateOfBirth){
+        update = update + 'updateMask.fieldPaths=dateOfBirth'
     }
     
-    return fireApi.patch(`/projects/jwbackend-36662/databases/(default)/documents/students/${student_id}?${update}`, studentUpdate).then((response) => {
+    return fireApi.patch(`/projects/jwbackend-36662/databases/(default)/documents/students/${student_id}`, studentUpdate).then((response) => {
     return response
     })
 }
