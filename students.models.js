@@ -37,27 +37,42 @@ function fetchSingleStudent(studentid){
 function addStudent(newStudent){
     const date = new Date();
     const timestamp = new Date().getTime().toString();
-    return fireApi.post(`/projects/jwbackend-36662/databases/(default)/documents/students/?documentId=${timestamp}`, newStudent).then((response) => {
+    const payload = {fields: {
+        name:{
+            stringValue: newStudent.name
+        },
+        email:{
+            stringValue: newStudent.email
+        },
+        address:{
+            stringValue: newStudent.address
+        },
+        dateOfBirth:{
+            stringValue: newStudent.dateOfBirth
+        },
+    }}
+    return fireApi.post(`/projects/jwbackend-36662/databases/(default)/documents/students/?documentId=${timestamp}`, payload).then((response) => {
     return response
     })
 }
 
 function updateStudent(student_id, studentUpdate){
-    let update = ''
-    if(studentUpdate.name){
-        update = update + 'updateMask.fieldPaths=name&'
-    }
-    if(studentUpdate.email){
-        update = update + 'updateMask.fieldPaths=email&'
-    }
-    if(studentUpdate.address){
-        update = update + 'updateMask.fieldPaths=address&'
-    }
-    if(studentUpdate.dateOfBirth){
-        update = update + 'updateMask.fieldPaths=dateOfBirth'
-    }
+    const payload = {fields: {
+        name:{
+            stringValue: studentUpdate.name
+        },
+        email:{
+            stringValue: studentUpdate.email
+        },
+        address:{
+            stringValue: studentUpdate.address
+        },
+        dateOfBirth:{
+            stringValue: studentUpdate.dateOfBirth
+        },
+    }}
     
-    return fireApi.patch(`/projects/jwbackend-36662/databases/(default)/documents/students/${student_id}`, studentUpdate).then((response) => {
+    return fireApi.patch(`/projects/jwbackend-36662/databases/(default)/documents/students/${student_id}`, payload).then((response) => {
     return response
     })
 }
